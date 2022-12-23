@@ -3,16 +3,24 @@ import Player from '@vimeo/player';
 const iframe = document.querySelector('iframe');
 const player = new Vimeo.Player(iframe);
 
-player.on('play', function() {
-    console.log('played the video!');
+ player.on('play', function() {
+     console.log('played the video!');
 });
- 
 
-player.on('timeupdate', function(data) {
+const lock = function (data) { 
+     _.throttle(() => {
     window.localStorage.setItem("videoplayer-current-time", data.seconds);
-});
+    console.log(data);
+  }, 1000)
+    
+}
 
-player.setCurrentTime(localStorage.getItem("videoplayer-current-time")).then(function(seconds) {
+player.on('timeupdate', lock);
+
+
+
+player.setCurrentTime(localStorage.getItem("videoplayer-current-time")).then(function (seconds) {
+   // localStorage.clear("videoplayer-current-time");
     
 }).catch(function(error) {
     switch (error.name) {
