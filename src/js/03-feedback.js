@@ -1,10 +1,10 @@
 import throttle from 'lodash.throttle';
 
-const submitBtn = document.querySelector('.feedback-form button');
+const submit = document.querySelector('.feedback-form');
 const input = document.querySelector('.feedback-form input');
 const message = document.querySelector('.feedback-form textarea')
 
-submitBtn.addEventListener('click', onSubmit);
+submit.addEventListener('submit', onSubmit);
 
 function onSubmit(e) {
 
