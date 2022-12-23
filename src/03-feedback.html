@@ -1,28 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Feedback form</title>
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/03-feedback.css" />
-  </head>
-  <body>
-    <p><a href="index.html">Go back</a></p>
 
-    <form class="feedback-form" autocomplete="off">
-      <label>
-        Email
-        <input type="email" name="email" autofocus />
-      </label>
-      <label>
-        Message
-        <textarea name="message" rows="8"></textarea>
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+const submitBtn = document.querySelector('.feedback-form button');
+const input = document.querySelector('.feedback-form input');
+const message = document.querySelector('.feedback-form textarea')
 
-    <script src="js/03-feedback.js" type="module"></script>
-  </body>
-</html>
+submitBtn.addEventListener('click', onSubmit);
+
+function onSubmit(e) {
+
+    e.preventDefault();
+    
+        console.log({ 'Email': input.value, message: message.value, });
+        localStorage.clear("feedback-form-state");
+        input.value = '';
+        message.value = '';
+};
+
+input.addEventListener('input', onTyping);
+message.addEventListener('input', onTyping);
+
+function onTyping(e) {
+    const formEl = {
+    Email: input.value,
+    Message: message.value,
+};
+    window.localStorage.setItem("feedback-form-state", JSON.stringify(formEl));
+};
