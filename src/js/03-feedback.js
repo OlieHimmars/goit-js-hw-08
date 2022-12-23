@@ -1,3 +1,4 @@
+import throttle from 'lodash.throttle';
 
 const submitBtn = document.querySelector('.feedback-form button');
 const input = document.querySelector('.feedback-form input');
@@ -10,18 +11,17 @@ function onSubmit(e) {
     e.preventDefault();
     
         console.log({ 'Email': input.value, message: message.value, });
-        localStorage.clear("feedback-form-state");
+        localStorage.removeItem("feedback-form-state");
         input.value = '';
         message.value = '';
 };
 
-input.addEventListener('input', onTyping);
-message.addEventListener('input', onTyping);
+const formThrottled = throttle(() => {
+    window.localStorage.setItem("feedback-form-state", JSON.stringify({
+        Email: input.value,
+        Message: message.value,
+    }));
+}, 500);
 
-function onTyping(e) {
-    const formEl = {
-    Email: input.value,
-    Message: message.value,
-};
-    window.localStorage.setItem("feedback-form-state", JSON.stringify(formEl));
-};
+input.addEventListener('input', formThrottled);
+message.addEventListener('input', formThrottled);
