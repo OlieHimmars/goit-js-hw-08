@@ -1,0 +1,2 @@
+const e=document.querySelector(".feedback-form button"),t=document.querySelector(".feedback-form input"),a=document.querySelector(".feedback-form textarea");function o(e){const o={Email:t.value,Message:a.value};window.localStorage.setItem("feedback-form-state",JSON.stringify(o))}e.addEventListener("click",(function(e){e.preventDefault(),console.log({Email:t.value,message:a.value}),localStorage.clear("feedback-form-state"),t.value="",a.value=""})),t.addEventListener("input",o),a.addEventListener("input",o);
+//# sourceMappingURL=03-feedback.928107d4.js.map
