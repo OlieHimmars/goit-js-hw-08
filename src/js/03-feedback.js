@@ -20,8 +20,8 @@ message.addEventListener('input', onTyping);
 
 function onTyping(e) {
     const formEl = {
-    Email: input.textContent,
-    Message: message.textContent,
+    Email: input.value,
+    Message: message.value,
 };
     window.localStorage.setItem("feedback-form-state", JSON.stringify(formEl));
 };
