@@ -2,9 +2,27 @@ import throttle from 'lodash.throttle';
 
 const submit = document.querySelector('.feedback-form');
 const input = document.querySelector('.feedback-form input');
-const message = document.querySelector('.feedback-form textarea')
+const message = document.querySelector('.feedback-form textarea');
 
 submit.addEventListener('submit', onSubmit);
+
+storageStatusCheck();
+
+function storageStatusCheck() {
+    const currentValue = getFormCurrentValue();
+
+  if (currentValue?.Email) {
+   input.value = currentValue.Email;
+  }
+
+  if (currentValue?.Message) {
+     message.value = currentValue.Message;
+  }
+}
+
+function getFormCurrentValue() {
+  return JSON.parse(localStorage.getItem("feedback-form-state"));
+}
 
 function onSubmit(e) {
 
@@ -16,7 +34,8 @@ function onSubmit(e) {
         message.value = '';
 };
 
-const formThrottled = throttle(() => {
+const formThrottled = throttle((e) => {
+
     window.localStorage.setItem("feedback-form-state", JSON.stringify({
         Email: input.value,
         Message: message.value,
