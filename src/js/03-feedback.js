@@ -27,11 +27,12 @@ function getFormCurrentValue() {
 function onSubmit(e) {
 
     e.preventDefault();
-    
+    if (input.value && message.value) {
         console.log({ 'Email': input.value, message: message.value, });
         localStorage.removeItem("feedback-form-state");
         input.value = '';
         message.value = '';
+    } return;
 };
 
 const formThrottled = throttle((e) => {
